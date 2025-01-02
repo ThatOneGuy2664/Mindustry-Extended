@@ -5,6 +5,7 @@ This is a completely seperate game also made under the GPL 3.0 lisence. It uses 
 <br />All base Mindustry content.
 <br />New planets.
 <br />New music.
+<br />New factions.
 <br />Much more custom, unique content.
 
 # What is this game then?
