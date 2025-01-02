@@ -1,7 +1,7 @@
 # THIS IS NOT MINUDUSTRY!
 This is a completely seperate game also made under the GPL 3.0 lisence. It uses [Mindustry](https://github.com/Anuken/Mindustry) source code (full credit of which goes to [Anuken](https://github.com/Anuken), however I have made all changes you see from the original game) and tries to add cut, unused, and new content. Within this game you'll find:
 
-<br />*Possible) Content from mods under the GPL 3.0 lisence. (Usually sprites)
+<br />(Possible) Content from mods under the GPL 3.0 lisence. (Usually sprites)
 <br />All base Mindustry content.
 <br />New planets.
 <be />New music.
