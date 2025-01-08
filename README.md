@@ -1,24 +1,6 @@
 ![Logo](core/assets-raw/sprites/ui/logo.png)
 
-[![Build Status](https://github.com/Anuken/Mindustry/workflows/Tests/badge.svg?event=push)](https://github.com/Anuken/Mindustry/actions)
-[![Discord](https://img.shields.io/discord/391020510269669376.svg?logo=discord&logoColor=white&logoWidth=20&labelColor=7289DA&label=Discord&color=17cf48)](https://discord.gg/mindustry)  
-
-The automation tower defense RTS, written in Java.
-
-_[Trello Board](https://trello.com/b/aE2tcUwF/mindustry-40-plans)_  
-_[Wiki](https://mindustrygame.github.io/wiki)_  
-_[Javadoc](https://mindustrygame.github.io/docs/)_ 
-
-## Contributing
-
-See [CONTRIBUTING](CONTRIBUTING.md).
-
-## Building
-
-Bleeding-edge builds are generated automatically for every commit. You can see them [here](https://github.com/Anuken/MindustryBuilds/releases).
-
-If you'd rather compile on your own, follow these instructions.
-First, make sure you have [JDK 17](https://adoptium.net/archive.html?variant=openjdk17&jvmVariant=hotspot) installed. **Other JDK versions will not work.** Open a terminal in the Mindustry directory and run the following commands:
+### Building
 
 ### Windows
 
