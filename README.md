@@ -51,4 +51,3 @@ The following is a non-exhaustive list of the "source" of generated code in `min
 
 Gradle may take up to several minutes to download files. Be patient. <br>
 After building, the output .JAR file should be in `/desktop/build/libs/Mindustry.jar` for desktop builds, and in `/server/build/libs/server-release.jar` for server builds.
-|---	|---	|---	|---	|
