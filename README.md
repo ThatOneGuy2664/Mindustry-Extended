@@ -1,6 +1,8 @@
 ![Logo](core/assets-raw/sprites/ui/logo.png)
 
-### Building
+Mindustry Extended is an unoffical Mindustry client (basically a whole new game with new content) that adds new, cut, and otherwise unused content to the game, while staying updated to the newest version of the original game as well.
+
+### *Building:*
 
 ### Windows
 
