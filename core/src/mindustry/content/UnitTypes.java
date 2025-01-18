@@ -1080,6 +1080,7 @@ public class UnitTypes{
             legSplashRange = 42;
             shadowElevation = 0.7f;
             allowLegStep = true;
+            drownTimeMultiplier = 4;
             hovering = true;
 
             weapons.add(new Weapon("toxicity-energy-gun"){{
