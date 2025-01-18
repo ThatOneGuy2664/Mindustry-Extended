@@ -11,7 +11,6 @@ import mindustry.entities.effect.*;
 import mindustry.entities.part.DrawPart.*;
 import mindustry.entities.part.*;
 import mindustry.entities.pattern.*;
-import mindustry.game.Rewind;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -3144,25 +3143,6 @@ public class Blocks{
             consumeLiquid(Liquids.hydrogen, 0.25f / 60f).boost();
         }};
 
-        largeCliffCrusher = new WallCrafter("large-cliff-crusher"){{
-            requirements(Category.production, with(Items.silicon, 80, Items.surgeAlloy, 15, Items.beryllium, 100, Items.tungsten, 50));
-            consumePower(30 / 60f);
-            drillTime = 48f;
-            size = 3;
-            attribute = Attribute.sand;
-            output = Items.sand;
-            fogRadius = 3;
-            ambientSound = Sounds.drill;
-            ambientSoundVolume = 0.08f;
-            consumeLiquid(Liquids.ozone, 1f / 60f);
-            itemConsumer = consumeItem(Items.tungsten).boost();
-            itemCapacity = 20;
-            boostItemUseTime = 60f * 10f;
-            //alternatively, boost using nitrogen:
-            //consumeLiquid(Liquids.nitrogen, 3f / 60f).boost();
-        }};
-
-
         largePlasmaBore = new BeamDrill("large-plasma-bore"){{
             requirements(Category.production, with(Items.silicon, 100, Items.oxide, 25, Items.beryllium, 100, Items.tungsten, 70));
             consumePower(0.8f);
@@ -5340,11 +5320,169 @@ public class Blocks{
             predictTarget = false;
 
             ammo(
-            Items.carbide, new BulletType(0f, 0f){{
-                shootEffect = Fx.shootBig;
-                smokeEffect = Fx.shootSmokeMissileColor;
-                hitColor = Pal.redLight;
-                ammoMultiplier = 1f;
+                    Items.carbide, new BulletType(0f, 0f){{
+                        shootEffect = Fx.shootBig;
+                        smokeEffect = Fx.shootSmokeMissileColor;
+                        hitColor = Pal.redLight;
+                        ammoMultiplier = 1f;
+
+                        spawnUnit = new MissileUnitType("scathe-missile"){{
+                            speed = 4.6f;
+                            maxRange = 6f;
+                            lifetime = 60f * 5.5f;
+                            outlineColor = Pal.darkOutline;
+                            engineColor = trailColor = Pal.redLight;
+                            engineLayer = Layer.effect;
+                            engineSize = 3.1f;
+                            engineOffset = 10f;
+                            rotateSpeed = 0.25f;
+                            trailLength = 18;
+                            missileAccelTime = 50f;
+                            lowAltitude = true;
+                            loopSound = Sounds.missileTrail;
+                            loopSoundVolume = 0.6f;
+                            deathSound = Sounds.largeExplosion;
+                            targetAir = false;
+                            targetUnderBlocks = false;
+
+                            fogRadius = 6f;
+
+                            health = 210;
+
+                            weapons.add(new Weapon(){{
+                                shootCone = 360f;
+                                mirror = false;
+                                reload = 1f;
+                                deathExplosionEffect = Fx.massiveExplosion;
+                                shootOnDeath = true;
+                                shake = 10f;
+                                bullet = new ExplosionBulletType(1500f, 65f){{
+                                    hitColor = Pal.redLight;
+                                    shootEffect = new MultiEffect(Fx.massiveExplosion, Fx.scatheExplosion, Fx.scatheLight, new WaveEffect(){{
+                                        lifetime = 10f;
+                                        strokeFrom = 4f;
+                                        sizeTo = 130f;
+                                    }});
+
+                                    collidesAir = false;
+                                    buildingDamageMultiplier = 0.25f;
+
+                                    ammoMultiplier = 1f;
+                                    fragLifeMin = 0.1f;
+                                    fragBullets = 7;
+                                    fragBullet = new ArtilleryBulletType(3.4f, 32){{
+                                        buildingDamageMultiplier = 0.3f;
+                                        drag = 0.02f;
+                                        hitEffect = Fx.massiveExplosion;
+                                        despawnEffect = Fx.scatheSlash;
+                                        knockback = 0.8f;
+                                        lifetime = 23f;
+                                        width = height = 18f;
+                                        collidesTiles = false;
+                                        splashDamageRadius = 40f;
+                                        splashDamage = 160f;
+                                        backColor = trailColor = hitColor = Pal.redLight;
+                                        frontColor = Color.white;
+                                        smokeEffect = Fx.shootBigSmoke2;
+                                        despawnShake = 7f;
+                                        lightRadius = 30f;
+                                        lightColor = Pal.redLight;
+                                        lightOpacity = 0.5f;
+
+                                        trailLength = 20;
+                                        trailWidth = 3.5f;
+                                        trailEffect = Fx.none;
+                                    }};
+                                }};
+                            }});
+
+                            abilities.add(new MoveEffectAbility(){{
+                                effect = Fx.missileTrailSmoke;
+                                rotation = 180f;
+                                y = -9f;
+                                color = Color.grays(0.6f).lerp(Pal.redLight, 0.5f).a(0.4f);
+                                interval = 7f;
+                            }});
+                        }};
+                    }},
+
+                    //TODO - needs balancing
+                    Items.phaseFabric, new BulletType(0f, 0f){{
+                        shootEffect = Fx.shootBig;
+                        smokeEffect = Fx.shootSmokeMissileColor;
+                        hitColor = Color.valueOf("ffd37f");
+                        ammoMultiplier = 1f;
+                        reloadMultiplier = 0.8f;
+
+                        spawnUnit = new MissileUnitType("scathe-missile-phase"){{
+                            speed = 4.4f;
+                            maxRange = 6f;
+                            lifetime = 60f * 5.7f;
+                            outlineColor = Pal.darkOutline;
+                            engineColor = trailColor = Color.valueOf("ffd37f");
+                            engineLayer = Layer.effect;
+                            engineSize = 3.1f;
+                            engineOffset = 10f;
+                            rotateSpeed = 0.2f;
+                            trailLength = 18;
+                            missileAccelTime = 50f;
+                            lowAltitude = true;
+                            loopSound = Sounds.missileTrail;
+                            loopSoundVolume = 0.6f;
+                            deathSound = Sounds.largeExplosion;
+                            targetAir = false;
+                            targetUnderBlocks = false;
+
+                            fogRadius = 6f;
+
+                            health = 250;
+
+                            weapons.add(new Weapon(){{
+                                shootCone = 360f;
+                                mirror = false;
+                                reload = 1f;
+                                deathExplosionEffect = Fx.massiveExplosion;
+                                shootOnDeath = true;
+                                shake = 10f;
+                                bullet = new ExplosionBulletType(1500f, 50f){{
+                                    hitColor = engineColor;
+                                    shootEffect = new MultiEffect(Fx.massiveExplosion, Fx.scatheExplosion, Fx.scatheLight, new WaveEffect(){{
+                                        lifetime = 10f;
+                                        strokeFrom = 4f;
+                                        sizeTo = 130f;
+                                    }});
+
+                                    collidesAir = false;
+                                    buildingDamageMultiplier = 0.2f;
+
+                                    ammoMultiplier = 1f;
+                                    fragLifeMin = 0.1f;
+                                    fragBullets = 7;
+                                    fragBullet = new ArtilleryBulletType(3.4f, 32){{
+                                        buildingDamageMultiplier = 0.2f;
+                                        drag = 0.02f;
+                                        hitEffect = Fx.massiveExplosion;
+                                        despawnEffect = Fx.scatheSlash;
+                                        knockback = 0.8f;
+                                        lifetime = 23f;
+                                        width = height = 18f;
+                                        collidesTiles = false;
+                                        splashDamageRadius = 40f;
+                                        splashDamage = 160f;
+                                        backColor = trailColor = hitColor = engineColor;
+                                        frontColor = Color.white;
+                                        smokeEffect = Fx.shootBigSmoke2;
+                                        despawnShake = 7f;
+                                        lightRadius = 30f;
+                                        lightColor = engineColor;
+                                        lightOpacity = 0.5f;
+
+                                        trailLength = 20;
+                                        trailWidth = 3.5f;
+                                        trailEffect = Fx.none;
+                                    }};
+                                }};
+                            }});
 
                             abilities.add(new MoveEffectAbility(){{
                                 effect = Fx.missileTrailSmoke;
@@ -5475,232 +5613,15 @@ public class Blocks{
                                 }};
                             }});
 
-                    abilities.add(new MoveEffectAbility(){{
-                        effect = Fx.missileTrailSmoke;
-                        rotation = 180f;
-                        y = -9f;
-                        color = Color.grays(0.6f).lerp(Pal.redLight, 0.5f).a(0.4f);
-                        interval = 7f;
-                    }});
-                }};
-            }},
-
-            //TODO - needs balancing
-            Items.phaseFabric, new BulletType(0f, 0f){{
-                shootEffect = Fx.shootBig;
-                smokeEffect = Fx.shootSmokeMissileColor;
-                hitColor = Color.valueOf("ffd37f");
-                ammoMultiplier = 1f;
-                reloadMultiplier = 0.8f;
-
-                spawnUnit = new MissileUnitType("scathe-missile-phase"){{
-                    speed = 4.4f;
-                    maxRange = 6f;
-                    lifetime = 60f * 5.7f;
-                    outlineColor = Pal.darkOutline;
-                    engineColor = trailColor = Color.valueOf("ffd37f");
-                    engineLayer = Layer.effect;
-                    engineSize = 3.1f;
-                    engineOffset = 10f;
-                    rotateSpeed = 0.2f;
-                    trailLength = 18;
-                    missileAccelTime = 50f;
-                    lowAltitude = true;
-                    loopSound = Sounds.missileTrail;
-                    loopSoundVolume = 0.6f;
-                    deathSound = Sounds.largeExplosion;
-                    targetAir = false;
-                    targetUnderBlocks = false;
-
-                    fogRadius = 6f;
-
-                    health = 250;
-
-                    weapons.add(new Weapon(){{
-                        shootCone = 360f;
-                        mirror = false;
-                        reload = 1f;
-                        deathExplosionEffect = Fx.massiveExplosion;
-                        shootOnDeath = true;
-                        shake = 10f;
-                        bullet = new ExplosionBulletType(1500f, 50f){{
-                            hitColor = engineColor;
-                            shootEffect = new MultiEffect(Fx.massiveExplosion, Fx.scatheExplosion, Fx.scatheLight, new WaveEffect(){{
-                                lifetime = 10f;
-                                strokeFrom = 4f;
-                                sizeTo = 130f;
+                            abilities.add(new MoveEffectAbility(){{
+                                effect = Fx.missileTrailSmoke;
+                                rotation = 180f;
+                                y = -9f;
+                                color = Color.grays(0.6f).lerp(Color.valueOf("f7e97e"), 0.5f).a(0.4f);
+                                interval = 7f;
                             }});
-
-                            collidesAir = false;
-                            buildingDamageMultiplier = 0.2f;
-
-                            ammoMultiplier = 1f;
-                            fragLifeMin = 0.1f;
-                            fragBullets = 7;
-                            fragBullet = new ArtilleryBulletType(3.4f, 32){{
-                                buildingDamageMultiplier = 0.2f;
-                                drag = 0.02f;
-                                hitEffect = Fx.massiveExplosion;
-                                despawnEffect = Fx.scatheSlash;
-                                knockback = 0.8f;
-                                lifetime = 23f;
-                                width = height = 18f;
-                                collidesTiles = false;
-                                splashDamageRadius = 40f;
-                                splashDamage = 160f;
-                                backColor = trailColor = hitColor = engineColor;
-                                frontColor = Color.white;
-                                smokeEffect = Fx.shootBigSmoke2;
-                                despawnShake = 7f;
-                                lightRadius = 30f;
-                                lightColor = engineColor;
-                                lightOpacity = 0.5f;
-
-                                trailLength = 20;
-                                trailWidth = 3.5f;
-                                trailEffect = Fx.none;
-                            }};
                         }};
-                    }});
-
-                    abilities.add(new MoveEffectAbility(){{
-                        effect = Fx.missileTrailSmoke;
-                        rotation = 180f;
-                        y = -9f;
-                        color = Color.grays(0.6f).lerp(Pal.redLight, 0.5f).a(0.4f);
-                        interval = 7f;
-                    }});
-
-                    abilities.add(new ForceFieldAbility(30f, 0f, 160f, 999999999f));
-
-                }};
-            }},
-
-            Items.surgeAlloy, new BulletType(0f, 0f){{
-                shootEffect = Fx.shootBig;
-                smokeEffect = Fx.shootSmokeMissileColor;
-                hitColor = Color.valueOf("f7e97e");
-
-                ammoMultiplier = 1f;
-                rangeChange = -8f*9f;
-                reloadMultiplier = 0.9f;
-
-                spawnUnit = new MissileUnitType("scathe-missile-surge"){{
-                    speed = 4.4f;
-                    maxRange = 6f;
-                    lifetime = 60f * 1.4f;
-                    outlineColor = Pal.darkOutline;
-                    engineColor = trailColor = Color.valueOf("f7e97e");
-                    engineLayer = Layer.effect;
-                    engineSize = 3.1f;
-                    engineOffset = 10f;
-                    rotateSpeed = 0.25f;
-                    trailLength = 18;
-                    missileAccelTime = 30f;
-                    lowAltitude = true;
-                    loopSound = Sounds.missileTrail;
-                    loopSoundVolume = 0.6f;
-                    deathSound = Sounds.largeExplosion;
-                    targetAir = false;
-                    targetUnderBlocks = false;
-
-                    fogRadius = 6f;
-
-                    health = 400;
-
-                    weapons.add(new Weapon(){{
-                        shootCone = 360f;
-                        rotate = true;
-                        rotationLimit = rotateSpeed = 0f;
-                        reload = 1f;
-                        deathExplosionEffect = Fx.massiveExplosion;
-                        shootOnDeath = true;
-                        shake = 10f;
-                        bullet = new ExplosionBulletType(400f, 40f){{
-                            hitColor = engineColor;
-                            shootEffect = new MultiEffect(Fx.massiveExplosion, Fx.scatheExplosionSmall);
-
-                            collidesAir = false;
-                            buildingDamageMultiplier = 0.25f;
-
-                            ammoMultiplier = 1f;
-                            fragLifeMin = 0.1f;
-                            fragBullets = 5;
-                            fragRandomSpread = 0f;
-                            fragSpread = 30f;
-                            fragBullet = new BulletType(){{
-                                shootEffect = Fx.shootBig;
-                                smokeEffect = Fx.shootSmokeMissileColor;
-                                hitColor = engineColor;
-                                ammoMultiplier = 1f;
-
-                                spawnUnit = new MissileUnitType("scathe-missile-surge-split"){{
-                                    speed = 4.8f;
-                                    maxRange = 6f;
-                                    lifetime = 60f * 3.5f;
-                                    outlineColor = Pal.darkOutline;
-                                    engineColor = trailColor = Color.valueOf("f7e97e");
-                                    engineLayer = Layer.effect;
-                                    engineSize = 2.2f;
-                                    engineOffset = 8f;
-                                    rotateSpeed = 1.4f;
-                                    trailLength = 12;
-                                    lowAltitude = true;
-                                    loopSound = Sounds.missileTrail;
-                                    loopSoundVolume = 0.6f;
-                                    deathSound = Sounds.largeExplosion;
-                                    targetAir = false;
-                                    targetUnderBlocks = false;
-
-                                    fogRadius = 6f;
-
-                                    health = 100;
-
-                                    weapons.add(new Weapon(){{
-                                        shootCone = 360f;
-                                        mirror = false;
-                                        reload = 1f;
-                                        deathExplosionEffect = Fx.massiveExplosion;
-                                        shootOnDeath = true;
-                                        shake = 10f;
-                                        bullet = new ExplosionBulletType(340f, 35f){{
-                                            lightning = 6;
-                                            lightningDamage = 35f;
-                                            lightningLength = 8;
-
-                                            hitColor = engineColor;
-                                            shootEffect = new MultiEffect(Fx.massiveExplosion, Fx.scatheExplosionSmall, Fx.scatheLightSmall, new WaveEffect(){{
-                                                lifetime = 10f;
-                                                strokeFrom = 4f;
-                                                sizeTo = 100f;
-                                            }});
-
-                                            collidesAir = false;
-                                            buildingDamageMultiplier = 0.2f;
-                                        }};
-                                    }});
-
-                                    abilities.add(new MoveEffectAbility(){{
-                                        effect = Fx.missileTrailSmokeSmall;
-                                        rotation = 180f;
-                                        y = -9f;
-                                        color = Color.grays(0.6f).lerp(Color.valueOf("f7e97e"), 0.5f).a(0.4f);
-                                        interval = 5f;
-                                    }});
-                                }};
-                            }};
-                        }};
-                    }});
-
-                    abilities.add(new MoveEffectAbility(){{
-                        effect = Fx.missileTrailSmoke;
-                        rotation = 180f;
-                        y = -9f;
-                        color = Color.grays(0.6f).lerp(Color.valueOf("f7e97e"), 0.5f).a(0.4f);
-                        interval = 7f;
-                    }});
-                }};
-            }}
+                    }}
             );
 
             drawer = new DrawTurret("reinforced-"){{
