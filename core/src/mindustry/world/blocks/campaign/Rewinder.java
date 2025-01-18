@@ -6,7 +6,6 @@ import arc.graphics.g2d.*;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import mindustry.annotations.Annotations.*;
-import mindustry.game.Rewind;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
