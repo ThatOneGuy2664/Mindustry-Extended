@@ -3,7 +3,6 @@ package mindustry.content;
 import arc.*;
 import arc.graphics.*;
 import arc.math.*;
-import arc.struct.ObjectSet;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.game.EventType.*;
 import mindustry.game.*;
