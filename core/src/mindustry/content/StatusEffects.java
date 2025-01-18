@@ -3,6 +3,8 @@ package mindustry.content;
 import arc.*;
 import arc.graphics.*;
 import arc.math.*;
+import arc.struct.ObjectSet;
+import mindustry.entities.effect.ParticleEffect;
 import mindustry.game.EventType.*;
 import mindustry.game.*;
 import mindustry.graphics.*;
@@ -11,7 +13,7 @@ import mindustry.type.*;
 import static mindustry.Vars.*;
 
 public class StatusEffects{
-    public static StatusEffect none, burning, freezing, unmoving, slow, fast, wet, muddy, melting, sapped, tarred, overdrive, overclock, shielded, shocked, blasted, corroded, boss, sporeSlowed, disarmed, electrified, invincible, dynamic;
+    public static StatusEffect none, burning, freezing, unmoving, slow, fast, wet, muddy, melting, sapped, tarred, overdrive, overclock, shielded, shocked, blasted, corroded, boss, sporeSlowed, disarmed, electrified, invincible, dynamic, toxified;
 
     public static void load(){
 
@@ -208,6 +210,31 @@ public class StatusEffects{
             show = false;
             dynamic = true;
             permanent = true;
+        }};
+
+        toxified = new StatusEffect("toxified"){{
+            reloadMultiplier = 0.5f;
+            healthMultiplier = 0.9f;
+            speedMultiplier = 0.5f;
+            effectChance = 0.2f;
+            damage = 0.25f;
+            transitionDamage = 3;
+
+            effect = new ParticleEffect(){{
+                particles = 3;
+                offset = 30;
+                sizeFrom = 5;
+                sizeTo = 0;
+                length = 60;
+                lifetime = 25;
+                colorFrom = Color.valueOf("bf92f9");
+                colorTo = Color.valueOf("665C9FFF");
+                cone = 360;
+            }};
+
+            init(() -> {
+                opposite(wet);
+            });
         }};
     }
 }

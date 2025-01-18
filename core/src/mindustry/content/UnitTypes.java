@@ -43,7 +43,7 @@ public class UnitTypes{
     tecta, collaris;
 
     //legs, legacy
-    public static @EntityDef(value = {Unitc.class, Legsc.class}, legacy = true) UnitType spiroct, arkyid, toxopid;
+    public static @EntityDef(value = {Unitc.class, Legsc.class}, legacy = true) UnitType spiroct, arkyid, toxopid, toxicity;
 
     //hover
     public static @EntityDef({Unitc.class, ElevationMovec.class}) UnitType elude;
@@ -374,6 +374,10 @@ public class UnitTypes{
                         alternate = true;
                         rotate = true;
                         rotateSpeed = 1;
+
+                        shoot = new ShootPattern(){{
+                            shots = 4;
+                        }};
 
                         bullet = new BasicBulletType(4, 60){{
                             knockback = 1;
@@ -962,7 +966,7 @@ public class UnitTypes{
                 shake = 4f;
                 rotateSpeed = 2f;
                 ejectEffect = Fx.casing1;
-                shootSound = Sounds.shootBig;
+                shootSound = Sounds.laser;
                 rotate = true;
                 shadow = 12f;
                 recoil = 3f;
@@ -1045,6 +1049,334 @@ public class UnitTypes{
 
                         status = StatusEffects.sapped;
                         statusDuration = 60f * 10;
+                    }};
+                }};
+            }});
+        }};
+
+        toxicity = new UnitType("toxicity"){{
+            health = 43000;
+            armor = 16;
+            speed = 0.48f;
+
+            groundLayer = 75;
+            hitSize = 47;
+            rotateSpeed = 1.2f;
+            drag = 0.4f;
+            range = maxRange = aimDst = 340;
+            flying = false;
+            legSpeed = 0.09f;
+            legMaxLength = 1.5f;
+            legCount = 8;
+            legBaseOffset = 15;
+            legLengthScl = 0.93f;
+            legPairOffset = 3;
+            legMoveSpace = 0.8f;
+            legExtension = -10;
+            legLength = 86;
+            rippleScale = 6;
+            stepShake = 3;
+            legSplashDamage = 100;
+            legSplashRange = 42;
+            shadowElevation = 0.7f;
+            allowLegStep = true;
+            hovering = true;
+
+            weapons.add(new Weapon("toxicity-energy-gun"){{
+                top = true;
+                mirror = true;
+                alternate = true;
+                y = -9;
+                x = 23;
+
+                rotate = true;
+                rotateSpeed = 3;
+                inaccuracy = 9;
+                shootY = 8;
+                reload = 36;
+                recoil = 3;
+                shake = 0.5f;
+                velocityRnd = 0.2f;
+                ejectEffect = Fx.casing2;
+                shootSound = Sounds.shootBig;
+
+                bullet = new BasicBulletType(){{
+                    hitEffect = new ParticleEffect(){{
+                        line = true;
+                        particles = 6;
+                        lifetime = 28;
+                        length = 45;
+                        lightColor = Color.valueOf("BF92F9FF");
+                        cone = -360;
+                        lenFrom = 8;
+                        lenTo = 0;
+                        colorFrom = Color.valueOf("BF92F9FF");
+                        colorTo = Color.valueOf("665C9FFF");
+                    }};
+
+                    shootEffect = Fx.shootBig2;
+                    lightColor = Color.valueOf("BF92F9FF");
+
+                    despawnEffect = new ParticleEffect(){{
+                        line = true;
+                        particles = 6;
+                        lifetime = 28;
+                        length = 45;
+                        cone = -360;
+                        lightColor = Color.valueOf("BF92F9FF");
+                        lenFrom = 8;
+                        lenTo = 0;
+                        colorFrom = Color.valueOf("BF92F9FF");
+                        colorTo = Color.valueOf("665C9FFF");
+                    }};
+
+                    lifetime = 90;
+                    sprite = "circle-bullet";
+                    damage = 160;
+                    homingRange = 40;
+                    homingPower = 0.00587f;
+                    trailParam = 5;
+                    trailEffect = Fx.none;
+                    trailLength = 19;
+                    trailInterval = 13;
+                    trailWidth = 4;
+                    shrinkX = shrinkY = 0;
+                    splashDamage = 30;
+                    splashDamageRadius = 20;
+                    lightning = 3;
+                    lightningDamage = 25;
+                    lightningColor = Color.valueOf("BF92F9FF");
+                    lightningLength = 5;
+                    lightningCone = 360;
+                    lightningLengthRand = 7;
+                    speed = 4;
+                    status = StatusEffects.sapped;
+                    statusDuration = 120;
+                    trailColor = Color.valueOf("BF92F9FF");
+                    width = height = 8;
+                    frontColor = Color.valueOf("ffffff");
+                    backColor = Color.valueOf("BF92F9FF");
+                }};
+            }});
+
+            weapons.add(new Weapon("toxopid-cannon"){{
+                y = -14f;
+                x = 0f;
+                shootY = 22f;
+                mirror = false;
+                reload = 210;
+                shake = 10f;
+                recoil = 10f;
+                rotateSpeed = 1f;
+                ejectEffect = Fx.casing3;
+                shootSound = Sounds.artillery;
+                rotate = true;
+                shadow = 30f;
+
+                rotationLimit = 80f;
+
+                bullet = new ArtilleryBulletType(3f, 60){{
+                    hitEffect = Fx.sapExplosion;
+                    knockback = 0.8f;
+                    lifetime = 80f;
+                    width = height = 25f;
+                    collidesTiles = collides = true;
+                    ammoMultiplier = 4f;
+                    splashDamageRadius = 85;
+                    splashDamage = 80f;
+                    backColor = Pal.sapBulletBack;
+                    frontColor = lightningColor = lightColor = Pal.sapBullet;
+                    lightning = 5;
+                    lightningLength = 20;
+                    smokeEffect = Fx.shootBigSmoke2;
+                    hitShake = 10f;
+                    lightRadius = 40f;
+                    lightOpacity = 0.6f;
+
+                    status = StatusEffects.sapped;
+                    statusDuration = 60f * 10;
+
+                    fragLifeMin = 0.3f;
+                    fragBullets = 9;
+
+                    fragBullet = new ArtilleryBulletType(2.3f, 30){{
+                        hitEffect = Fx.sapExplosion;
+                        knockback = 0.8f;
+                        lifetime = 90f;
+                        width = height = 20f;
+                        collidesTiles = false;
+                        splashDamageRadius = 70f;
+                        splashDamage = 40f;
+                        backColor = Pal.sapBulletBack;
+                        frontColor = lightningColor = Pal.sapBullet;
+                        lightning = 2;
+                        lightningLength = 5;
+                        smokeEffect = Fx.shootBigSmoke2;
+                        hitShake = 5f;
+                        lightRadius = 30f;
+                        lightColor = Pal.sap;
+                        lightOpacity = 0.5f;
+
+                        status = StatusEffects.blasted;
+                        statusDuration = 60f * 10;
+                    }};
+                }};
+            }});
+
+            weapons.add(new Weapon(){{
+                x = 0;
+                y = 0;
+                reload = cooldownTime = 660;
+                mirror = rotate = false;
+                shootY = 27;
+
+                shoot = new ShootPattern(){{
+                    shotDelay = 120;
+                    shots = 1;
+                    firstShotDelay = 125;
+                }};
+
+                shootStatus = StatusEffects.unmoving;
+                chargeSound = Sounds.lasercharge;
+                shootStatusDuration = 125;
+                shake = 3;
+                shootSound = Sounds.laserblast;
+                ejectEffect = Fx.none;
+
+                bullet = new BasicBulletType(){{
+                    damage = 200;
+                    sprite = "circle-bullet";
+                    status = StatusEffects.toxified;
+                    statusDuration = 300;
+                    lightRadius = 50;
+                    lightColor = Color.valueOf("BF92F9FF");
+                    damage = 250;
+                    splashDamage = 350;
+                    splashDamageRadius = 100;
+                    height = width = 27;
+                    speed = 6;
+                    hitSound = Sounds.plasmaboom;
+                    lifetime = 90;
+                    homingPower = 0.00756f;
+                    homingRange = 160;
+                    shrinkX = shrinkY = 0;
+                    hitEffect = despawnEffect = Fx.reactorExplosion;
+
+                    chargeEffect = new MultiEffect(
+                            new ParticleEffect(){{
+                                particles = 1;
+                                sizeFrom = 1;
+                                sizeTo = 6;
+                                length = 0;
+                                lifetime = 125;
+                                lightColor = colorFrom = colorTo = Color.valueOf("BF92F9FF");
+                                layer = 109;
+                                cone = 360;
+                            }},
+
+                            new ParticleEffect(){{
+                                particles = 35;
+                                offset = 15;
+                                baseLength = -65;
+                                sizeFrom = 0;
+                                sizeTo = 4;
+                                length = 60;
+                                layer = 109;
+                                lightColor = colorTo = Color.valueOf("BF92F9FF");
+                                colorFrom = Color.valueOf("665C9FFF");
+                                lifetime = 120;
+                                cone = 360;
+                            }},
+
+                            new ParticleEffect(){{
+                                particles = 1;
+                                sizeFrom = 2;
+                                sizeTo = 26;
+                                length = 0;
+                                spin = 11;
+                                lightColor = colorTo = Color.valueOf("BF92F9FF");
+                                lifetime = 125;
+                                layer = 109;
+                                region = "xguctt-square";
+                                colorFrom = Color.valueOf("665C9FFF");
+                                cone = 360;
+                            }},
+
+                            new ParticleEffect(){{
+                                particles = 1;
+                                sizeFrom = 2;
+                                sizeTo = 26;
+                                length = 0;
+                                spin = -11;
+                                lightColor = colorTo = Color.valueOf("BF92F9FF");
+                                lifetime = 125;
+                                layer = 109;
+                                region = "xguctt-square";
+                                colorFrom = Color.valueOf("665C9FFF");
+                                cone = 360;
+                            }}
+                    );
+
+                    trailEffect = new ParticleEffect(){{
+                        particles = 7;
+                        length = baseLength = 8;
+                        lifetime = 25;
+                        interp = Interp.circleOut;
+                        cone = 360;
+                        offset = 5;
+                        lightColor = colorTo = Color.valueOf("BF92F9FF");
+                        colorFrom = Color.valueOf("fff8e8");
+                        sizeFrom = 7;
+                        sizeTo = 0;
+                    }};
+
+                    trailParam = 5;
+                    trailLength = 19;
+                    trailInterval = 13;
+                    trailColor = lightningColor = Color.valueOf("BF92F9FF");
+                    trailWidth = 9;
+                    lightning = 3;
+                    lightningDamage = 60;
+                    lightningLength = 8;
+                    lightningCone = 360;
+                    lightningLengthRand = 27;
+                    pierce = false;
+                    absorbable = false;
+                    hittable = false;
+                    trailChance = 1;
+                    buildingDamageMultiplier = 0.6f;
+                    smokeEffect = Fx.none;
+                    frontColor = Color.valueOf("ffffff");
+                    backColor = Color.valueOf("BF92F9FF");
+                    fragBullets = 15;
+
+                    fragBullet = new BasicBulletType(){{
+                        sprite = "circle-bullet";
+                        lightColor = trailColor = Color.valueOf("BF92F9FF");
+                        speed = trailParam = 5;
+                        trailEffect = Fx.none;
+                        trailLength = 16;
+                        trailInterval = 13;
+                        trailWidth = 4;
+                        lifetime = 70;
+                        damage = 95;
+                        height = width = 8;
+
+                        hitEffect = despawnEffect = new ParticleEffect(){{
+                            line = true;
+                            lightColor = colorFrom = Color.valueOf("BF92F9FF");
+                            lifetime = 28;
+                            length = 45;
+                            cone = -360;
+                            lenFrom = 8;
+                            lenTo = 0;
+                            colorTo = Color.valueOf("665C9FFF");
+                        }};
+
+                        pierceCap = 6;
+                        pierce = pierceBuilding = true;
+                        frontColor = Color.valueOf("FFFFFF");
+                        backColor = Color.valueOf("BF92F9FF");
                     }};
                 }};
             }});

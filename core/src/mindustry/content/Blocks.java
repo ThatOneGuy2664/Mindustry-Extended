@@ -6566,7 +6566,7 @@ public class Blocks{
 
             upgrades.addAll(
                     new UnitType[]{UnitTypes.eclipse, UnitTypes.twilight},
-                    //new UnitType[]{UnitTypes.toxopid, UnitTypes.???},
+                    new UnitType[]{UnitTypes.toxopid, UnitTypes.toxicity},
                     new UnitType[]{UnitTypes.reign, UnitTypes.king} //,
                     //new UnitType[]{UnitTypes.omura, UnitTypes.???},
                     //new UnitType[]{UnitTypes.oct, UnitTypes.???},

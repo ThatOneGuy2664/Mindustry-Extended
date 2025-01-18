@@ -365,7 +365,7 @@ public class SerpuloTechTree{
                         node(fortress, () -> {
                             node(scepter, () -> {
                                 node(reign, () -> {
-
+                                    node(king);
                                 });
                             });
                         });
@@ -389,7 +389,7 @@ public class SerpuloTechTree{
                             node(spiroct, () -> {
                                 node(arkyid, () -> {
                                     node(toxopid, Seq.with(new SectorComplete(mycelialBastion)), () -> {
-
+                                        node(toxicity);
                                     });
                                 });
                             });
@@ -403,7 +403,7 @@ public class SerpuloTechTree{
                             node(zenith, () -> {
                                 node(antumbra, () -> {
                                     node(eclipse, () -> {
-
+                                        node(twilight);
                                     });
                                 });
                             });
