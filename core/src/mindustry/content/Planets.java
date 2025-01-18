@@ -113,7 +113,7 @@ public class Planets{
             accessible = true;
             visible = true;
             atmosphereColor = Liquids.neoplasm.color;
-            iconColor = Liquids.neoplasm.color;
+            iconColor = Liquids.water.color;
             startSector = 10;
             defaultCore = Blocks.coreRaft;
             atmosphereRadIn = -0.01f;
@@ -121,7 +121,6 @@ public class Planets{
             defaultEnv = Env.underwater | Env.terrestrial;
             allowLaunchToNumbered = false; //TODO implement
             ruleSetter = r -> {
-                //TODO neoplasm source? Attack sectors galore, neoplastic surface?
                 r.waveTeam = Team.derelict2;
                 r.placeRangeCheck = false;
                 r.showSpawns = false;

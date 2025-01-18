@@ -34,7 +34,7 @@ public class TantrosTechTree {
 
             node(waterPoweredDrill, () -> {
                 node(hydroelectricGenerator, () -> {
-                    node(scrapSolarPanel, () -> {
+                    node(scrapSolarPanel, Seq.with(new Research(scrapSiliconFurnace)), () -> {
                         node(scrapSolarPanelNormal, () -> {
 
                         });
