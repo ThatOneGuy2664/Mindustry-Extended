@@ -643,16 +643,16 @@ public class BulletType extends Content implements Cloneable{
             //home in on allies if possible
             if(heals()){
                 target = Units.closestTarget(null, realAimX, realAimY, homingRange,
-                e -> e.checkTarget(collidesAir, collidesGround) && e.team != b.team && !b.hasCollided(e.id),
-                t -> collidesGround && (t.team != b.team || t.damaged()) && !b.hasCollided(t.id)
+                        e -> e.checkTarget(collidesAir, collidesGround) && e.team != b.team && !b.hasCollided(e.id),
+                        t -> collidesGround && (t.team != b.team || t.damaged()) && !b.hasCollided(t.id)
                 );
             }else{
                 if(b.aimTile != null && b.aimTile.build != null && b.aimTile.build.team != b.team && collidesGround && !b.hasCollided(b.aimTile.build.id)){
                     target = b.aimTile.build;
                 }else{
                     target = Units.closestTarget(b.team, realAimX, realAimY, homingRange,
-                        e -> e != null && e.checkTarget(collidesAir, collidesGround) && !b.hasCollided(e.id),
-                        t -> t != null && collidesGround && !b.hasCollided(t.id));
+                            e -> e != null && e.checkTarget(collidesAir, collidesGround) && !b.hasCollided(e.id),
+                            t -> t != null && collidesGround && !b.hasCollided(t.id));
                 }
             }
 
@@ -785,8 +785,8 @@ public class BulletType extends Content implements Cloneable{
     }
 
     public @Nullable Bullet create(
-        @Nullable Entityc owner, @Nullable Entityc shooter, Team team, float x, float y, float angle, float damage, float velocityScl,
-        float lifetimeScl, Object data, @Nullable Mover mover, float aimX, float aimY, @Nullable Teamc target
+            @Nullable Entityc owner, @Nullable Entityc shooter, Team team, float x, float y, float angle, float damage, float velocityScl,
+            float lifetimeScl, Object data, @Nullable Mover mover, float aimX, float aimY, @Nullable Teamc target
     ){
         if(!Mathf.chance(createChance)) return null;
         if(ignoreSpawnAngle) angle = 0;

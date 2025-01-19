@@ -62,7 +62,8 @@ public class Duct extends Block implements Autotiler{
     public void init(){
         super.init();
 
-        if(bridgeReplacement == null || !(bridgeReplacement instanceof DuctBridge)) bridgeReplacement = Blocks.ductBridge;
+        if(bridgeReplacement == null || !(bridgeReplacement instanceof DuctBridge))
+            bridgeReplacement = Blocks.ductBridge;
     }
 
     @Override

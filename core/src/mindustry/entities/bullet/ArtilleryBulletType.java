@@ -13,6 +13,7 @@ public class ArtilleryBulletType extends BasicBulletType{
         collides = false;
         collidesAir = false;
         scaleLife = true;
+        trailRotation = false;
         hitShake = 1f;
         hitSound = Sounds.explosion;
         hitEffect = Fx.flakExplosion;

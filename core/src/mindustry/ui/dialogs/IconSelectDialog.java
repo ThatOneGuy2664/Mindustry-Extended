@@ -1,5 +1,4 @@
 package mindustry.ui.dialogs;
-
 import arc.*;
 import arc.func.*;
 import arc.scene.style.*;
@@ -10,10 +9,9 @@ import mindustry.ctype.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.ui.*;
-
 import static mindustry.Vars.*;
 
-public class IconSelectDialog extends Dialog{
+public class IconSelectDialog extends Dialog {
     private Intc consumer = i -> Log.info("you have mere seconds");
     private boolean allowLocked;
 
@@ -30,27 +28,21 @@ public class IconSelectDialog extends Dialog{
                 t.clearChildren();
                 t.marginRight(19f);
                 t.defaults().size(48f);
-
                 t.button(Icon.none, Styles.flati, () -> {
                     hide();
                     consumer.get(0);
                 });
-
-                int cols = (int)Math.min(20, Core.graphics.getWidth() / Scl.scl(52f));
-
+                int cols = (int) Math.min(20, Core.graphics.getWidth() / Scl.scl(52f));
                 int i = 1;
-                for(var key : accessibleIcons){
+                for (var key : accessibleIcons) {
                     var value = Icon.icons.get(key);
-
                     t.button(value, Styles.flati, () -> {
                         hide();
                         consumer.get(Iconc.codes.get(key));
                     });
-
-                    if(++i % cols == 0) t.row();
+                    if (++i % cols == 0) t.row();
                 }
-
-                for(ContentType ctype : defaultContentIcons){
+                for (ContentType ctype : defaultContentIcons) {
                     t.row();
                     t.image().colspan(cols).growX().width(Float.NEGATIVE_INFINITY).height(3f).color(Pal.accent);
                     t.row();
@@ -62,8 +54,7 @@ public class IconSelectDialog extends Dialog{
                                 hide();
                                 consumer.get(u.emojiChar());
                             });
-
-                            if(++i % cols == 0) t.row();
+                            if (++i % cols == 0) t.row();
                         }
                     }
                 }
@@ -72,7 +63,7 @@ public class IconSelectDialog extends Dialog{
         buttons.button("@back", Icon.left, this::hide).size(210f, 64f);
     }
 
-    public void show(Intc listener){
+    public void show(Intc listener) {
         consumer = listener;
         super.show();
     }
