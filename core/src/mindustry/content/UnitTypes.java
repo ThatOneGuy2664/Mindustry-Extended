@@ -66,7 +66,7 @@ public class UnitTypes{
     public static @EntityDef(value = {Unitc.class, Payloadc.class}, legacy = true) UnitType quad;
 
     //air + payload + legacy (different branch)
-    public static @EntityDef(value = {Unitc.class, Payloadc.class}, legacy = true) UnitType oct;
+    public static @EntityDef(value = {Unitc.class, Payloadc.class}, legacy = true) UnitType oct, hex;
 
     //air, legacy
     public static @EntityDef(value = {Unitc.class}, legacy = true) UnitType alpha, beta, gamma;
@@ -1671,7 +1671,7 @@ public class UnitTypes{
             maxRange = 200;
             aimDst = 430;
             lightRadius = 250;
-            health = 34000;
+            health = 38000;
             armor = 16f;
             engineOffset = 46;
             engineSize = 7;
@@ -2011,6 +2011,45 @@ public class UnitTypes{
             ammoCapacity = 1;
 
             abilities.add(new ForceFieldAbility(140f, 4f, 7000f, 60f * 8, 8, 0f), new RepairFieldAbility(130f, 60f * 2, 140f));
+        }};
+
+        hex = new UnitType("hex"){{
+            aiController = DefenderAI::new;
+
+            armor = 16;
+            health = 40000;
+            speed = 0.9f;
+            rotateSpeed = 1;
+            accel = 0.035f;
+            drag = 0.018f;
+            flying = true;
+            engineOffset = 57;
+            engineSize = 6;
+            targetAir = faceTarget = singleTarget = true;
+            drawShields = false;
+            fallSpeed = 0.006f;
+            lowAltitude = true;
+            lightRadius = 200;
+            payloadCapacity = 2100;
+            mineSpeed = 5.3f;
+            buildSpeed = 5.5f;
+            mineTier = 5;
+            itemCapacity = 500;
+            hitSize = 85;
+
+            abilities.add(
+                    new EnergyFieldAbility(50, 200, 165){{
+                        effectRadius = 10;
+                        sectorRad = 0.64f;
+                        hitBuildings = true;
+                        rotateSpeed = 3;
+                        sectors = 4;
+                        healPercent = 8;
+                        maxTargets = 20;
+                        color = Color.valueOf("98ffa9ff");
+                        status = StatusEffects.electrified;
+            }},
+                    new ForceFieldAbility(160, 10, 7800, 600, 20, 0));
         }};
 
         //endregion

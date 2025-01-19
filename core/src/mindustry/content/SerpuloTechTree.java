@@ -414,7 +414,7 @@ public class SerpuloTechTree{
                                 node(mega, () -> {
                                     node(quad, () -> {
                                         node(oct, () -> {
-
+                                            node(hex);
                                         });
                                     });
                                 });

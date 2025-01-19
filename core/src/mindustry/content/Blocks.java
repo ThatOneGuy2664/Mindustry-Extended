@@ -2312,10 +2312,12 @@ public class Blocks{
 
         //tantros transport blocks
 
+        //TODO fix bridge auto-build
         itemPipe = new Duct("item-pipe"){{
             requirements(Category.distribution, with(Items.scrap, 1));
             health = 90;
             speed = 4f;
+            bridgeReplacement = Blocks.itemPipeBridge;
             researchCost = with(Items.scrap, 10);
         }};
 
@@ -2346,7 +2348,6 @@ public class Blocks{
             researchCostMultiplier = 1.5f;
         }};
 
-        //TODO new sprite
         itemUnderflowPipe = new OverflowDuct("item-underflow-pipe"){{
             requirements(Category.distribution, with(Items.copper, 8, Items.scrap, 8));
             health = 90;
@@ -6567,9 +6568,9 @@ public class Blocks{
             upgrades.addAll(
                     new UnitType[]{UnitTypes.eclipse, UnitTypes.twilight},
                     new UnitType[]{UnitTypes.toxopid, UnitTypes.toxicity},
-                    new UnitType[]{UnitTypes.reign, UnitTypes.king} //,
+                    new UnitType[]{UnitTypes.reign, UnitTypes.king},
                     //new UnitType[]{UnitTypes.omura, UnitTypes.???},
-                    //new UnitType[]{UnitTypes.oct, UnitTypes.???},
+                    new UnitType[]{UnitTypes.oct, UnitTypes.hex} //,
                     //new UnitType[]{UnitTypes.corvus, UnitTypes.???},
                     //new UnitType[]{UnitTypes.navanax, UnitTypes.???}
             );
